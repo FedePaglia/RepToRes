@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RapToRes - Report to Resolve</title>
+  <title>RapToRes</title>
   <style>
     :root {
       --bg-color: #f5f5f5;
       --text-color: #2f4f4f;
       --card-bg: #ffffff;
-      --border-color: transparent;
+      --border-color: #000000;
       --shadow-color: rgba(0, 0, 0, 0.05);
       --slider-track: linear-gradient(to right, green, yellow, red, magenta);
       --slider-thumb: #333333;
@@ -21,7 +21,7 @@
         --bg-color: #1e1e1e;
         --text-color: #f0f0f0;
         --card-bg: #2c2c2c;
-        --border-color: transparent;
+        --border-color: #ffffff;
         --shadow-color: rgba(255, 255, 255, 0.05);
         --slider-track: linear-gradient(to right, green, yellow, red, magenta);
         --slider-thumb: #ffffff;
@@ -35,53 +35,65 @@
       padding: 0;
       font-family: sans-serif;
     }
+
     body {
       background: var(--bg-color);
       color: var(--text-color);
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
-    header, footer {
+
+    header {
       background-color: var(--card-bg);
       padding: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid var(--border-color);
+      z-index: 2;
     }
+
     header h1 {
       font-size: 1.5rem;
     }
+
     .icon-group {
       display: flex;
       gap: 1rem;
     }
+
     .main {
       flex: 1;
-      padding: 1rem;
       overflow-y: auto;
+      padding: 1rem;
+      padding-bottom: 100px; /* spazio per il footer */
     }
+
     .post {
       background: var(--card-bg);
       border-radius: 10px;
       max-width: 500px;
-      margin: 1rem auto;
+      margin: 2rem auto;
       padding: 1rem;
       box-shadow: 0 4px 12px var(--shadow-color);
     }
+
     .post-header {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 0.5rem;
     }
+
     .post-header img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
       object-fit: cover;
     }
+
     .post-image {
       width: 100%;
       aspect-ratio: 1 / 1;
@@ -90,12 +102,15 @@
       margin-bottom: 0.5rem;
       box-shadow: 0 2px 6px var(--shadow-color);
     }
+
     .slider {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      margin-top: 0.5rem;
+      margin-top: 1rem;
+      padding: 1rem 0;
     }
+
     .slider input[type="range"] {
       -webkit-appearance: none;
       width: 100%;
@@ -105,6 +120,7 @@
       outline: none;
       border: 1px solid var(--slider-thumb-border);
     }
+
     .slider input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 20px;
@@ -114,37 +130,72 @@
       border-radius: 50%;
       cursor: pointer;
     }
-    .slider input[type="range"]::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: var(--slider-thumb);
-      border: 2px solid var(--slider-thumb-border);
-      border-radius: 50%;
-      cursor: pointer;
-    }
+
     .post-buttons {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       margin-top: 0.5rem;
+      font-size: 1.4rem;
     }
+
     .post-buttons button {
       background: none;
       border: none;
-      font-size: 1.2rem;
       cursor: pointer;
       color: var(--text-color);
     }
+
     footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: var(--card-bg);
       display: flex;
       justify-content: space-around;
       align-items: center;
       border-top: 1px solid var(--border-color);
-      background-color: var(--card-bg);
-      padding: 1rem;
+      z-index: 10;
     }
+
     footer .nav-icon {
       font-size: 1.5rem;
       cursor: pointer;
+    }
+
+    .upload-button {
+      position: fixed;
+      z-index: 20;
+      font-size: 2rem;
+      background: var(--card-bg);
+      border: 2px solid var(--border-color);
+      box-shadow: 0 4px 10px var(--shadow-color);
+    }
+
+    @media (max-width: 767px) {
+      .upload-button {
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px;
+        padding: 10px 20px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .upload-button {
+        bottom: 90px;
+        right: 30px;
+        left: auto;
+        transform: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -158,37 +209,89 @@
   </header>
 
   <main class="main">
+    <!-- 4 post -->
     <div class="post">
       <div class="post-header">
-        <img src="https://via.placeholder.com/40" alt="User Profile">
-        <strong>NomeUtente123</strong>
+        <img src="https://via.placeholder.com/40" alt="User" />
+        <strong>NomeUtente1</strong>
       </div>
       <div class="post-image"></div>
       <div class="post-buttons">
-        <button>💬</button>
         <button>⬆️</button>
-        <button>⬇️</button>
+        <button>💬</button>
+        <button>📤</button>
       </div>
       <div class="slider">
-        <input type="range" id="gravitySlider" min="0" max="100" value="36">
-        <span id="gravityValue">36%</span>
-        <small>Gravità</small>
+        <input type="range" value="25">
+        <span>25%</span><small> Gravità</small>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <img src="https://via.placeholder.com/40" alt="User" />
+        <strong>NomeUtente2</strong>
+      </div>
+      <div class="post-image"></div>
+      <div class="post-buttons">
+        <button>⬆️</button>
+        <button>💬</button>
+        <button>📤</button>
+      </div>
+      <div class="slider">
+        <input type="range" value="55">
+        <span>55%</span><small> Gravità</small>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <img src="https://via.placeholder.com/40" alt="User" />
+        <strong>NomeUtente3</strong>
+      </div>
+      <div class="post-image"></div>
+      <div class="post-buttons">
+        <button>⬆️</button>
+        <button>💬</button>
+        <button>📤</button>
+      </div>
+      <div class="slider">
+        <input type="range" value="40">
+        <span>40%</span><small> Gravità</small>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="post-header">
+        <img src="https://via.placeholder.com/40" alt="User" />
+        <strong>NomeUtente4</strong>
+      </div>
+      <div class="post-image"></div>
+      <div class="post-buttons">
+        <button>⬆️</button>
+        <button>💬</button>
+        <button>📤</button>
+      </div>
+      <div class="slider">
+        <input type="range" value="80">
+        <span>80%</span><small> Gravità</small>
       </div>
     </div>
   </main>
 
+  <div class="upload-button">➕</div>
+
   <footer>
     <div class="nav-icon">🔥</div>
-    <div class="nav-icon">➕</div>
+    <div class="nav-icon">🏠</div>
     <div class="nav-icon">⚙️</div>
   </footer>
-
   <script>
-    const slider = document.getElementById('gravitySlider');
-    const output = document.getElementById('gravityValue');
-
-    slider.addEventListener('input', function() {
-      output.textContent = `${slider.value}%`;
+    document.querySelectorAll('.slider input[type="range"]').forEach(slider => {
+      const span = slider.nextElementSibling;
+      const updateValue = () => span.textContent = `${slider.value}%`;
+      slider.addEventListener('input', updateValue);
+      updateValue();
     });
   </script>
 </body>
