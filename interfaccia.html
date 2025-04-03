@@ -3,30 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RapToRes</title>
+  <title>RepToRes</title>
   <style>
-    :root {
-      --bg-color: #f5f5f5;
-      --text-color: #2f4f4f;
-      --card-bg: #ffffff;
-      --border-color: #000000;
-      --shadow-color: rgba(0, 0, 0, 0.05);
-      --slider-track: linear-gradient(to right, green, yellow, red, magenta);
-      --slider-thumb: #333333;
-      --slider-thumb-border: #000000;
+:root {
+  --bg-color: #f5f5f5;
+  --text-color: #2f4f4f;
+  --card-bg: #ffffff;
+  --border-color: #000000;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --slider-track: linear-gradient(to right, green, yellow, red, magenta);
+  --slider-thumb: #333333;
+  --slider-thumb-border: #000000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: #f0f0f0;
+  --card-bg: #2c2c2c;
+  --border-color: #ffffff;
+  --shadow-color: rgba(255, 255, 255, 0.05);
+  --slider-track: linear-gradient(to right, green, yellow, red, magenta);
+  --slider-thumb: #ffffff;
+  --slider-thumb-border: #ffffff;
+}
+
+    html {
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg-color: #1e1e1e;
-        --text-color: #f0f0f0;
-        --card-bg: #2c2c2c;
-        --border-color: #ffffff;
-        --shadow-color: rgba(255, 255, 255, 0.05);
-        --slider-track: linear-gradient(to right, green, yellow, red, magenta);
-        --slider-thumb: #ffffff;
-        --slider-thumb-border: #ffffff;
-      }
+    body {
+      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     * {
@@ -249,20 +255,234 @@
         justify-content: center;
       }
     }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90vw;
+      max-width: 700px;
+      max-height: 90vh;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+.modal-content input,
+#login-button {
+  border-radius: 8px;
+}
+    .modal-content h2 {
+      margin-bottom: 1rem;
+    }
+
+    .modal-content input {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    #login-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .register-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .register-link a {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .user-popup {
+      position: fixed;
+      top: 70px;
+      right: 10px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      padding: 1rem;
+      width: 280px;
+      z-index: 999;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+.filter-popup {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.filter-popup input,
+.filter-popup select,
+.filter-popup button {
+  border-radius: 10px;
+}
+    .user-popup.hidden {
+      display: none;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .user-actions {
+      list-style: none;
+      padding: 0;
+    }
+
+    .user-actions li {
+      margin: 0.5rem 0;
+    }
+
+    .user-actions a {
+      text-decoration: none;
+      color: var(--text-color);
+    }
+
+    .user-actions a:hover {
+      text-decoration: underline;
+    }
+
+    .filter-popup {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background: var(--card-bg);
+      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+      transition: right 0.3s ease;
+      z-index: 9999;
+      padding: 1rem;
+      overflow-y: auto;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .filter-popup.visible {
+      right: 0;
+    }
+
+    .filter-popup h3 {
+      margin-bottom: 1rem;
+    }
+
+    .filter-popup input,
+    .filter-popup select {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+
+    .filter-popup button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .mobile-sidebar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+      padding: 1rem;
+      z-index: 1000;
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      transition: transform 0.3s ease-in-out;
+      transform: translateY(100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .mobile-sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .mobile-sidebar li {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+
+    .mobile-sidebar a {
+    border-radius: 10px;
+    display: block;
+    padding: 0.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    }
+
+    .mobile-sidebar.visible {
+      transform: translateY(0%);
+    }
+
+    @media (min-width: 768px) {
+      .mobile-sidebar {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>RapToRes</h1>
+    <h1 style="display: flex; align-items: center; gap: 0.5rem;">
+      <img src="logocopia.png" alt="RepToRes Logo" style="height: 40px;">
+      <a href="interfaccia.html" style="text-decoration: none; color: inherit;">RapToRes</a>
+    </h1>
     <div class="icon-group">
       <span>🎛️</span>
-      <span>👤</span>
+      <div id="profile-icon" style="cursor:pointer;">👤</div>
     </div>
   </header>
 
   <div class="sidebar">
     <ul>
       <li><a href="#">👤 Profilo/Login</a></li>
+      <li><a href="#">🔥 Tendenze</a></li>
       <li><a href="#">🎨 Tema</a></li>
       <li><a href="#">🌍 Lingua</a></li>
       <li><a href="#">ℹ️ Chi Siamo</a></li>
@@ -285,8 +505,24 @@
         <div class="slider">
           <input type="range" value="25">
           <span>25%</span><small> Gravità</small>
+  </div>
+</div>
+  <div id="upload-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="upload-warning">
+        <h2>Avvertenza!</h2>
+        <p>Si prega di inquadrare anche l'ambiente circostante e non solo l'oggetto della segnalazione.</p>
+        <div style="display: flex; justify-content: center;">
+          <input type="file" id="imageUploadInput" accept="image/*" capture="environment" />
         </div>
       </div>
+      <img id="preview-image" src="" alt="Anteprima immagine" style="margin-top: 1rem; width: 100%; height: auto; max-height: 80vh; display: none; border-radius: 12px; object-fit: contain;" />
+      <div style="margin-top: 1rem; display: flex; justify-content: space-around;">
+        <button id="confirm-upload" style="padding: 0.5rem 1rem;">Conferma</button>
+        <button id="cancel-upload" style="padding: 0.5rem 1rem;">Annulla</button>
+      </div>
+    </div>
+  </div>
       <div class="post">
         <div class="post-header">
           <img src="https://via.placeholder.com/40" alt="User">
@@ -334,9 +570,62 @@
     <div class="upload-button">➕</div>
     <footer>
       <div class="nav-icon">🔥</div>
-      <div class="nav-icon">🏠</div>
-      <div class="nav-icon">⚙️</div>
+      <div class="nav-icon"><a href="interfaccia.html" style="text-decoration:none; color:inherit;">🏠</a></div>
+      <div class="nav-icon" id="mobile-settings">⚙️</div>
     </footer>
+  </div>
+
+  <div id="user-popup" class="user-popup hidden">
+    <div class="user-info">
+      <img src="https://via.placeholder.com/50" alt="User" class="user-avatar" />
+      <div>
+        <strong>Nome Utente</strong><br>
+        <small>nomeutente@mail.com</small>
+      </div>
+    </div>
+    <hr>
+    <ul class="user-actions">
+      <li><a href="#">Gestisci il tuo profilo</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  </div>
+
+  <div id="filter-popup" class="filter-popup hidden">
+    <h3>🔍 Ricerca Avanzata</h3>
+    <select id="regione">
+      <option value="">Tutte le regioni</option>
+      <option value="Lazio">Lazio</option>
+      <option value="Lombardia">Lombardia</option>
+    </select>
+    <input type="text" id="comune" placeholder="Comune">
+    <input type="number" id="min-gravita" placeholder="Gravità minima">
+    <select id="ordina">
+      <option value="data">Ordina per data</option>
+      <option value="gravita">Ordina per gravità</option>
+      <option value="upvote">Ordina per upvote</option>
+    </select>
+    <button id="applica-filtri">Applica Filtri</button>
+  </div>
+
+  <div id="login-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Accedi</h2>
+      <input type="email" placeholder="Email" id="login-email" />
+      <input type="password" placeholder="Password" id="login-password" />
+      <button id="login-button">Accedi</button>
+      <p class="register-link">Non sei registrato? <a href="#">Clicca qui</a></p>
+    </div>
+  </div>
+
+  <div id="mobile-sidebar" class="mobile-sidebar hidden">
+    <ul>
+      <li><a href="#">👤 Profilo/Login</a></li>
+      <li><a href="#">🎨 Tema</a></li>
+      <li><a href="#">🌍 Lingua</a></li>
+      <li><a href="#">ℹ️ Chi Siamo</a></li>
+      <li><a href="#">❓ FAQ</a></li>
+      <li><a href="#">🔍 Come Funziona RepToRes</a></li>
+    </ul>
   </div>
 
   <script>
@@ -345,6 +634,139 @@
       const updateValue = () => span.textContent = `${slider.value}%`;
       slider.addEventListener('input', updateValue);
       updateValue();
+    });
+
+    const loginLink = document.querySelector('.sidebar a[href="#"]');
+    const loginModal = document.getElementById('login-modal');
+
+    loginLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginModal.classList.remove('hidden');
+    });
+
+    loginModal.addEventListener('click', (e) => {
+      if (e.target === loginModal) {
+        loginModal.classList.add('hidden');
+      }
+    });
+
+    const profileIcon = document.getElementById('profile-icon');
+    const userPopup = document.getElementById('user-popup');
+
+    profileIcon.addEventListener('click', () => {
+      userPopup.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!userPopup.contains(e.target) && !profileIcon.contains(e.target)) {
+        userPopup.classList.add('hidden');
+      }
+    });
+
+    const filterIcon = document.querySelector('.icon-group span'); // the 🎛️ icon
+    const filterPopup = document.getElementById('filter-popup');
+
+    filterIcon.addEventListener('click', () => {
+      filterPopup.classList.toggle('visible');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!filterPopup.contains(e.target) && !filterIcon.contains(e.target)) {
+        filterPopup.classList.remove('visible');
+      }
+    });
+
+    document.getElementById('applica-filtri').addEventListener('click', () => {
+      const regione = document.getElementById('regione').value;
+      const comune = document.getElementById('comune').value;
+      const minGravita = document.getElementById('min-gravita').value;
+      const sort = document.getElementById('ordina').value;
+
+      console.log('Filtra:', { regione, comune, minGravita, sort });
+      filterPopup.classList.remove('visible');
+    });
+
+    const themeToggle = Array.from(document.querySelectorAll('.sidebar a')).find(a => a.textContent.includes('Tema'));
+
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'dark') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Apply saved theme on load
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    }
+
+    const mobileSettings = document.getElementById('mobile-settings');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+
+    mobileSettings.addEventListener('click', () => {
+      mobileSidebar.classList.toggle('visible');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!mobileSidebar.contains(e.target) && !mobileSettings.contains(e.target)) {
+        mobileSidebar.classList.remove('visible');
+      }
+    });
+    
+    const imageUploadInput = document.getElementById('imageUploadInput');
+    const uploadModal = document.getElementById('upload-modal');
+    imageUploadInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const previewImage = document.getElementById('preview-image');
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          previewImage.src = event.target.result;
+          previewImage.style.display = 'block';
+          document.querySelector('.modal-content').style.width = '90vw';
+          document.querySelector('.modal-content').style.maxWidth = '700px';
+          document.querySelector('.modal-content').style.maxHeight = '90vh';
+          document.querySelector('.upload-warning').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    const uploadTrigger = document.querySelector('.upload-button');
+    const confirmBtn = document.getElementById('confirm-upload');
+    const cancelBtn = document.getElementById('cancel-upload');
+    
+    uploadTrigger.addEventListener('click', () => {
+      uploadModal.classList.remove('hidden');
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+      uploadModal.classList.add('hidden');
+      imageUploadInput.value = '';
+      document.getElementById('preview-image').style.display = 'none';
+      document.querySelector('.upload-warning').style.display = 'block';
+    });
+    
+    confirmBtn.addEventListener('click', () => {
+      if (imageUploadInput.files.length > 0) {
+        alert('Immagine confermata: ' + imageUploadInput.files[0].name);
+        uploadModal.classList.add('hidden');
+        imageUploadInput.value = '';
+        document.getElementById('preview-image').style.display = 'none';
+      } else {
+        alert('Nessuna immagine selezionata.');
+      }
     });
   </script>
 </body>
