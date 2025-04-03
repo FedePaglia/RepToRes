@@ -277,7 +277,9 @@
       background: var(--card-bg);
       padding: 2rem;
       border-radius: 12px;
-      width: 300px;
+      width: 90vw;
+      max-width: 700px;
+      max-height: 90vh;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       text-align: center;
       backdrop-filter: blur(12px);
@@ -503,8 +505,24 @@
         <div class="slider">
           <input type="range" value="25">
           <span>25%</span><small> Gravità</small>
+  </div>
+</div>
+  <div id="upload-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="upload-warning">
+        <h2>Avvertenza!</h2>
+        <p>Si prega di inquadrare anche l'ambiente circostante e non solo l'oggetto della segnalazione.</p>
+        <div style="display: flex; justify-content: center;">
+          <input type="file" id="imageUploadInput" accept="image/*" capture="environment" />
         </div>
       </div>
+      <img id="preview-image" src="" alt="Anteprima immagine" style="margin-top: 1rem; width: 100%; height: auto; max-height: 80vh; display: none; border-radius: 12px; object-fit: contain;" />
+      <div style="margin-top: 1rem; display: flex; justify-content: space-around;">
+        <button id="confirm-upload" style="padding: 0.5rem 1rem;">Conferma</button>
+        <button id="cancel-upload" style="padding: 0.5rem 1rem;">Annulla</button>
+      </div>
+    </div>
+  </div>
       <div class="post">
         <div class="post-header">
           <img src="https://via.placeholder.com/40" alt="User">
@@ -703,6 +721,51 @@
     document.addEventListener('click', (e) => {
       if (!mobileSidebar.contains(e.target) && !mobileSettings.contains(e.target)) {
         mobileSidebar.classList.remove('visible');
+      }
+    });
+    
+    const imageUploadInput = document.getElementById('imageUploadInput');
+    const uploadModal = document.getElementById('upload-modal');
+    imageUploadInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const previewImage = document.getElementById('preview-image');
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          previewImage.src = event.target.result;
+          previewImage.style.display = 'block';
+          document.querySelector('.modal-content').style.width = '90vw';
+          document.querySelector('.modal-content').style.maxWidth = '700px';
+          document.querySelector('.modal-content').style.maxHeight = '90vh';
+          document.querySelector('.upload-warning').style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    const uploadTrigger = document.querySelector('.upload-button');
+    const confirmBtn = document.getElementById('confirm-upload');
+    const cancelBtn = document.getElementById('cancel-upload');
+    
+    uploadTrigger.addEventListener('click', () => {
+      uploadModal.classList.remove('hidden');
+    });
+    
+    cancelBtn.addEventListener('click', () => {
+      uploadModal.classList.add('hidden');
+      imageUploadInput.value = '';
+      document.getElementById('preview-image').style.display = 'none';
+      document.querySelector('.upload-warning').style.display = 'block';
+    });
+    
+    confirmBtn.addEventListener('click', () => {
+      if (imageUploadInput.files.length > 0) {
+        alert('Immagine confermata: ' + imageUploadInput.files[0].name);
+        uploadModal.classList.add('hidden');
+        imageUploadInput.value = '';
+        document.getElementById('preview-image').style.display = 'none';
+      } else {
+        alert('Nessuna immagine selezionata.');
       }
     });
   </script>
