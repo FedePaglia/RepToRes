@@ -20,7 +20,7 @@
   --bg-color: #1e1e1e;
   --text-color: #f0f0f0;
   --card-bg: #2c2c2c;
-  --border-color: #ffffff;
+  --border-color: #000000;
   --shadow-color: rgba(255, 255, 255, 0.05);
   --slider-track: linear-gradient(to right, green, yellow, red, magenta);
   --slider-thumb: #ffffff;
@@ -95,18 +95,18 @@
     }
 
     header {
-      background-color: var(--card-bg);
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       height: 60px;
       z-index: 101;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--card-bg);
       border-bottom: 1px solid var(--border-color);
+      padding: 0 1rem;
     }
 
     header h1 {
@@ -486,7 +486,7 @@
       <li><a href="#">🎨 Tema</a></li>
       <li><a href="#">🌍 Lingua</a></li>
       <li><a href="#">ℹ️ Chi Siamo</a></li>
-      <li><a href="#">❓ FAQ</a></li>
+      <li><a href="faq.html">❓ FAQ</a></li>
       <li><a href="#">🔍 Come Funziona RepToRes</a></li>
     </ul>
   </div>
@@ -623,7 +623,7 @@
       <li><a href="#">🎨 Tema</a></li>
       <li><a href="#">🌍 Lingua</a></li>
       <li><a href="#">ℹ️ Chi Siamo</a></li>
-      <li><a href="#">❓ FAQ</a></li>
+      <li><a href="faq.html">❓ FAQ</a></li>
       <li><a href="#">🔍 Come Funziona RepToRes</a></li>
     </ul>
   </div>
@@ -635,6 +635,22 @@
       slider.addEventListener('input', updateValue);
       updateValue();
     });
+    
+    const mobileThemeToggle = Array.from(document.querySelectorAll('.mobile-sidebar a')).find(a => a.textContent.includes('Tema'));
+    
+    if (mobileThemeToggle) {
+      mobileThemeToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
 
     const loginLink = document.querySelector('.sidebar a[href="#"]');
     const loginModal = document.getElementById('login-modal');
