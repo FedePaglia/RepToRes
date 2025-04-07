@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - RepToRes</title>
+  <style>
+    :root {
+      --bg-color: #f5f5f5;
+      --text-color: #2f4f4f;
+      --card-bg: #ffffff;
+      --border-color: #000000;
+    }
+    
+    [data-theme="dark"] {
+      --bg-color: #1e1e1e;
+      --text-color: #f0f0f0;
+      --card-bg: #2c2c2c;
+      --border-color: #ffffff;
+    }
+    
+    html, body {
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding-top: 140px;
+      margin: 0;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--card-bg);
+      border-bottom: 1px solid #ccc;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .faq-bar {
+      position: fixed;
+      top: 72px; /* approx height of header */
+      left: 0;
+      right: 0;
+      background-color: #3b634c; /* green similar to logo */
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: bold;
+      z-index: 999;
+    }
+
+    .faq-bar > div {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .faq {
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin-bottom: 1.5rem;
+      padding: 2rem;
+    }
+
+    .faq .question {
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #2f4f4f;
+    }
+
+    .faq .answer {
+      display: none;
+      padding-top: 0.5rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <img src="logocopia.png" alt="Logo RepToRes" style="height: 40px;">
+      <a href="interfaccia.html" style="font-size: 1.5rem; font-weight: bold; text-decoration: none; color: inherit;">RepToRes</a>
+    </div>
+    <div id="user-icon" style="font-size: 1.5rem; cursor: pointer;">👤</div>
+  </header>
+  <div class="faq-bar">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <div id="sidebar-toggle" style="cursor: pointer; font-size: 1.5rem;">☰</div>
+      <span>FAQ</span>
+    </div>
+  </div>
+
+  <div class="faq-container">
+    <div class="faq">
+      <div class="question">Domanda n°1</div>
+      <div class="answer">Risposta.</div>
+    </div>
+    <div class="faq">
+      <div class="question">Domanda n°2</div>
+      <div class="answer">Risposta.</div>
+    </div>
+    <div class="faq">
+      <div class="question">Domanda n°3</div>
+      <div class="answer">Risposta.</div>
+    </div>
+    <div class="faq">
+      <div class="question">Domanda n°4</div>
+      <div class="answer">Risposta.</div>
+    </div>
+    <div class="faq">
+      <div class="question">Domanda n°5</div>
+      <div class="answer">Risposta.</div>
+    </div>
+    <div class="faq">
+      <div class="question">Domanda n°6</div>
+      <div class="answer">Risposta.</div>
+    </div>
+  </div>
+  
+<div id="desktop-sidebar" style="position: fixed; top: 132px; left: -300px; width: 250px; height: calc(100% - 132px); background: var(--card-bg); border-right: 1px solid var(--border-color); box-shadow: 2px 0 6px rgba(0,0,0,0.1); transition: left 0.3s ease; z-index: 998; padding: 2rem 1.5rem 1rem 1.5rem; display: flex; flex-direction: column; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
+    <ul style="list-style: none; padding: 0;">
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a href="#" style="text-decoration: none; color: var(--text-color); font-weight: bold;">👤 Profilo/Login</a></li>
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a href="#" style="text-decoration: none; color: var(--text-color); font-weight: bold;">🔥 Tendenze</a></li>
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a id="toggle-theme" href="#" style="text-decoration: none; color: var(--text-color); font-weight: bold;">🎨 Tema</a></li>
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a href="#" style="text-decoration: none; color: var(--text-color); font-weight: bold;">🌍 Lingua</a></li>
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a href="#" style="text-decoration: none; color: var(--text-color); font-weight: bold;">ℹ️ Chi Siamo</a></li>
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a href="faq.html" style="text-decoration: none; color: var(--text-color); font-weight: bold;">❓ FAQ</a></li>
+      <li style="margin: 2rem 0; font-size: 1.2rem;"><a href="#" style="text-decoration: none; color: var(--text-color); font-weight: bold;">🔍 Come Funziona RepToRes</a></li>
+    </ul>
+  </div>
+
+  <div id="user-popup" style="position: fixed; top: 70px; right: 1rem; background: var(--card-bg, #fff); color: var(--text-color, #333); border: 1px solid #ccc; border-radius: 10px; padding: 1rem; display: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 1001;">
+    <p><strong>Nome utente</strong></p>
+    <p>Mail utente</p>
+    <hr>
+    <p style="cursor: pointer; margin: 0.5rem 0;">Gestisci il tuo profilo</p>
+    <p style="cursor: pointer; margin: 0.5rem 0;">Logout</p>
+  </div>
+
+  <script>
+    const faqs = document.querySelectorAll('.faq .question');
+    faqs.forEach((question) => {
+      question.addEventListener('click', () => {
+        question.classList.toggle('active');
+        const answer = question.nextElementSibling;
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    const userIcon = document.getElementById('user-icon');
+    const userPopup = document.getElementById('user-popup');
+
+    userIcon.addEventListener('click', () => {
+      const isVisible = userPopup.style.display === 'block';
+      userPopup.style.display = isVisible ? 'none' : 'block';
+    });
+
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const desktopSidebar = document.getElementById('desktop-sidebar');
+
+    sidebarToggle.addEventListener('click', () => {
+      if (desktopSidebar.style.left === '0px') {
+        desktopSidebar.style.left = '-300px';
+      } else {
+        desktopSidebar.style.left = '0px';
+      }
+    });
+
+    window.addEventListener('click', (e) => {
+      if (
+        !desktopSidebar.contains(e.target) &&
+        !sidebarToggle.contains(e.target)
+      ) {
+        desktopSidebar.style.left = '-300px';
+      }
+      if (!userIcon.contains(e.target) && !userPopup.contains(e.target)) {
+        userPopup.style.display = 'none';
+      }
+    });
+
+    const toggleTheme = document.getElementById('toggle-theme');
+    if (toggleTheme) {
+      toggleTheme.addEventListener('click', (e) => {
+        e.preventDefault();
+        const htmlEl = document.documentElement;
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (prefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    }
+  </script>
+</body>
+</html>
